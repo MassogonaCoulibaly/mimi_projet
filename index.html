@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Apprenants P04</title>
+</head>
+<body>
+    <form>
+        <div class="logo"><img src="image/A.P04_logo.png" alt=""></div>
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required><br>
+      
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" required><br>
+      
+        <label for="date_naissance">Date de naissance :</label>
+        <input type="date" id="date_naissance" name="date_naissance" required><br><br>
+      
+        <input type="submit" value="Enregistrer">
+      </form>
+      
+</body>
+</html>
+<?php
+$servername = "localhost"; // Remplacez avec votre serveur MySQL
+$username = "username"; // Remplacez avec votre nom d'utilisateur MySQL
+$password = "password"; // Remplacez avec votre mot de passe MySQL
+$dbname = "nom_de_la_base_de_donnees"; // Remplacez avec le nom de votre base de données MySQL
+
+// Connexion à la base de données
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Vérification de la connexion
+if ($conn->connect_error) {
+  die("La connexion à la base de données a échoué: " . $conn->connect_error);
+}
+
+// Récupération des données soumises dans le formulaire
+$nom = $_POST['nom'];
+$prenom = $_POST['prenom'];
+$date_naissance = $_POST['date_naissance'];
+
+// Préparation de la requête SQL pour insérer les données dans la base de données
+$sql = "INSERT INTO formulaire (nom, prenom, date_naissance) VALUES ('$nom', '$prenom', '$date_naissance')";
+
+// Exécution de la requête SQL
+if ($conn->query($sql) === TRUE) {
+  echo "Les données ont été enregistrées avec succès.";
+} else {
+  echo "Erreur lors de l'enregistrement des données: " . $conn->error;
+}
+
+// Fermeture de la connexion à la base de données
+$conn->close();
+?>
